@@ -1,3 +1,17 @@
+# XR Plugin Automated Input Tests
+
+This package contains automated tests meant to exercise a XR Plugin Input Provider.  These tests do not guarantee complete compliance.  Make sure to run the manual tests as well.
+
+How to add this to your project:
+- Open the package manager window
+- Press the "+" button in the upper left corner of package manager, and select to add a package from a git URL.
+- In the text box that appears, paste in this URL: "https://github.com/Unity-Technologies/com.unity.xr.certinputauto.git"
+- Open the manifest.json for your project and add this package to the "testables" list.  If no testables list exists, add the following as a top level entry (at the same level as the "dependencies" list)"
+"testables": [
+  "com.unity.xr.certinputauto"
+]
+
+
 # UPM Package Starter Kit
 
 The purpose of this package template starter kit is to provide the data structure and development guidelines for new packages meant for the **Unity Package Manager (UPM)**.
