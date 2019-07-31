@@ -98,7 +98,7 @@ public class InputAutomatic
                 HMDCount++;
             }
             else {
-                Debug.Log(Devices[i].name + " is not a HMD. skipping to next device...");
+                Debug.Log(Devices[i].name + " is NOT a HMD. skipping to next device...");
             }
         }
 
@@ -130,7 +130,7 @@ public class InputAutomatic
                 TrackingReferenceCount++;
             }
             else {
-                Debug.Log(Devices[i].name + " is not a TrackingReference. Skipping to next device...");
+                Debug.Log(Devices[i].name + " is NOT a TrackingReference. Skipping to next device...");
             }
         }
 
@@ -161,7 +161,7 @@ public class InputAutomatic
                 HardwareTrackerCount++;
             }
             else {
-                Debug.Log(Devices[i].name + " is not a HardwareTracker. Skipping to next device...");
+                Debug.Log(Devices[i].name + " is NOT a HardwareTracker. Skipping to next device...");
             }
         }
 
@@ -374,7 +374,6 @@ public class InputAutomatic
         List<InputDevice> DevicesForCurrentSubsystem = new List<InputDevice>();
         for (int i = 0; i < InputSubsystemInstances.Count; i++)
         {
-            Debug.Log("Testing device: " + allDevices[i].name);
             DevicesForCurrentSubsystem.Clear();
             XRInputSubsystem CurrentSubsystem = InputSubsystemInstances[i];
             CurrentSubsystem.TryGetInputDevices(DevicesForCurrentSubsystem);
