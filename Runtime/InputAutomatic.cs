@@ -26,10 +26,12 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
         {
+            Debug.Log("Testing device: " + Devices[i]);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
             if (Features.Count == 0)
@@ -76,13 +78,16 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
+
 
         int HMDCount = 0;
         for (int i = 0; i < Devices.Count; i++)
         {
             if (Devices[i].role == InputDeviceRole.Generic)
             {
+                Debug.Log(Devices[i] + "is a HMD. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -91,6 +96,9 @@ public class InputAutomatic
                 Assert.IsTrue(ContainsFeatureWithName(Features, "RightEyeRotation"));
                 Assert.IsTrue(ContainsFeatureWithName(Features, "CenterEyeRotation"));
                 HMDCount++;
+            }
+            else {
+                Debug.Log(Devices[i] + "is not a HMD. skipping to next device...");
             }
         }
 
@@ -104,6 +112,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         int TrackingReferenceCount = 0;
@@ -111,6 +120,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.TrackingReference)
             {
+                Debug.Log(Devices[i] + "is a TrackingReference. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -118,6 +128,9 @@ public class InputAutomatic
                 Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"));
 
                 TrackingReferenceCount++;
+            }
+            else {
+                Debug.Log(Devices[i] + "is not a TrackingReference. Skipping to next device...");
             }
         }
 
@@ -131,6 +144,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         int HardwareTrackerCount = 0;
@@ -138,12 +152,16 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.HardwareTracker)
             {
+                Debug.Log(Devices[i] + "is a HardwareTracker. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
                 Assert.IsTrue(ContainsFeatureWithName(Features, "DevicePosition"));
                 Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"));
                 HardwareTrackerCount++;
+            }
+            else {
+                Debug.Log(Devices[i] + "is not a HardwareTracker. Skipping to next device...");
             }
         }
 
@@ -157,10 +175,12 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
         {
+            Debug.Log("Testing device: " + Devices[i]);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
@@ -193,10 +213,12 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
         {
+            Debug.Log("Testing device: " + Devices[i]);
             HapticCapabilities hapticCapabilities;
 
             if (!Devices[i].TryGetHapticCapabilities(out hapticCapabilities))
@@ -224,10 +246,12 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
         {
+            Debug.Log("Testing device: " + Devices[i]);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
@@ -248,10 +272,12 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
+        Debug.Log(Devices.Count + "Devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
         {
+            Debug.Log("Testing device: " + Devices[i]);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
@@ -338,7 +364,8 @@ public class InputAutomatic
     {
         List<InputDevice> allDevices = new List<InputDevice>();
         InputDevices.GetDevices(allDevices);
-        
+
+        Debug.Log(allDevices.Count + "Devices Found.");       
         Assert.AreNotEqual(0, allDevices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         List<XRInputSubsystem> InputSubsystemInstances = new List<XRInputSubsystem>();
@@ -347,6 +374,7 @@ public class InputAutomatic
         List<InputDevice> DevicesForCurrentSubsystem = new List<InputDevice>();
         for (int i = 0; i < InputSubsystemInstances.Count; i++)
         {
+            Debug.Log("Testing device: " + Devices[i]);
             DevicesForCurrentSubsystem.Clear();
             XRInputSubsystem CurrentSubsystem = InputSubsystemInstances[i];
             CurrentSubsystem.TryGetInputDevices(DevicesForCurrentSubsystem);
