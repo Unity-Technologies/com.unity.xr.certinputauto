@@ -1,6 +1,6 @@
 # XR Plugin Automated Input Tests
 
-This package contains automated tests meant to exercise a XR Plugin Input Provider.  Active devices must be hooked up to the machine running these tests. These tests do not guarantee complete compliance.  Make sure to run the manual tests as well.
+This package contains automated tests meant to exercise a XR Plugin Input Provider.  Active devices must be hooked up to the machine running these tests. These tests do not guarantee complete compliance.  Make sure to run the manual tests as well for full coverage.
 
 How to add this to your project:
 - Open the package manager window
