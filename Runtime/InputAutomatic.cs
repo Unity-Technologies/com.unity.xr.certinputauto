@@ -147,7 +147,7 @@ public class InputAutomatic
             }
         }
 
-        Debug.Log(HardwareTrackerCount + " TrackingReferences found.");
+        Debug.Log(HardwareTrackerCount + " HardwareTrackers found.");
     }
 
     [Test]
