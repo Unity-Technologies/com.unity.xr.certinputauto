@@ -31,7 +31,7 @@ public class InputAutomatic
 
         for (int i = 0; i < Devices.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i]);
+            Debug.Log("Testing device: " + Devices[i].name);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
             if (Features.Count == 0)
@@ -87,7 +87,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.Generic)
             {
-                Debug.Log(Devices[i] + "is a HMD. Running checks...");
+                Debug.Log(Devices[i].name + "is a HMD. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -98,7 +98,7 @@ public class InputAutomatic
                 HMDCount++;
             }
             else {
-                Debug.Log(Devices[i] + "is not a HMD. skipping to next device...");
+                Debug.Log(Devices[i].name + "is not a HMD. skipping to next device...");
             }
         }
 
@@ -120,7 +120,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.TrackingReference)
             {
-                Debug.Log(Devices[i] + "is a TrackingReference. Running checks...");
+                Debug.Log(Devices[i].name + "is a TrackingReference. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -130,7 +130,7 @@ public class InputAutomatic
                 TrackingReferenceCount++;
             }
             else {
-                Debug.Log(Devices[i] + "is not a TrackingReference. Skipping to next device...");
+                Debug.Log(Devices[i].name + "is not a TrackingReference. Skipping to next device...");
             }
         }
 
@@ -152,7 +152,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.HardwareTracker)
             {
-                Debug.Log(Devices[i] + "is a HardwareTracker. Running checks...");
+                Debug.Log(Devices[i].name + "is a HardwareTracker. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -161,7 +161,7 @@ public class InputAutomatic
                 HardwareTrackerCount++;
             }
             else {
-                Debug.Log(Devices[i] + "is not a HardwareTracker. Skipping to next device...");
+                Debug.Log(Devices[i].name + "is not a HardwareTracker. Skipping to next device...");
             }
         }
 
@@ -180,7 +180,7 @@ public class InputAutomatic
 
         for (int i = 0; i < Devices.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i]);
+            Debug.Log("Testing device: " + Devices[i].name);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
@@ -218,7 +218,7 @@ public class InputAutomatic
 
         for (int i = 0; i < Devices.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i]);
+            Debug.Log("Testing device: " + Devices[i].name);
             HapticCapabilities hapticCapabilities;
 
             if (!Devices[i].TryGetHapticCapabilities(out hapticCapabilities))
@@ -251,7 +251,7 @@ public class InputAutomatic
 
         for (int i = 0; i < Devices.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i]);
+            Debug.Log("Testing device: " + Devices[i].name);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
@@ -277,7 +277,7 @@ public class InputAutomatic
 
         for (int i = 0; i < Devices.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i]);
+            Debug.Log("Testing device: " + Devices[i].name);
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
@@ -374,7 +374,7 @@ public class InputAutomatic
         List<InputDevice> DevicesForCurrentSubsystem = new List<InputDevice>();
         for (int i = 0; i < InputSubsystemInstances.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i]);
+            Debug.Log("Testing device: " + Devices[i].name);
             DevicesForCurrentSubsystem.Clear();
             XRInputSubsystem CurrentSubsystem = InputSubsystemInstances[i];
             CurrentSubsystem.TryGetInputDevices(DevicesForCurrentSubsystem);
