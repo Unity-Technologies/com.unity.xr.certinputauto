@@ -374,7 +374,7 @@ public class InputAutomatic
         List<InputDevice> DevicesForCurrentSubsystem = new List<InputDevice>();
         for (int i = 0; i < InputSubsystemInstances.Count; i++)
         {
-            Debug.Log("Testing device: " + Devices[i].name);
+            Debug.Log("Testing device: " + allDevices[i].name);
             DevicesForCurrentSubsystem.Clear();
             XRInputSubsystem CurrentSubsystem = InputSubsystemInstances[i];
             CurrentSubsystem.TryGetInputDevices(DevicesForCurrentSubsystem);
