@@ -26,7 +26,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
@@ -78,7 +78,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + "devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
 
@@ -87,7 +87,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.Generic)
             {
-                Debug.Log(Devices[i].name + "is a HMD. Running checks...");
+                Debug.Log(Devices[i].name + " is a HMD. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -98,7 +98,7 @@ public class InputAutomatic
                 HMDCount++;
             }
             else {
-                Debug.Log(Devices[i].name + "is not a HMD. skipping to next device...");
+                Debug.Log(Devices[i].name + " is not a HMD. skipping to next device...");
             }
         }
 
@@ -112,7 +112,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         int TrackingReferenceCount = 0;
@@ -120,7 +120,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.TrackingReference)
             {
-                Debug.Log(Devices[i].name + "is a TrackingReference. Running checks...");
+                Debug.Log(Devices[i].name + " is a TrackingReference. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -130,7 +130,7 @@ public class InputAutomatic
                 TrackingReferenceCount++;
             }
             else {
-                Debug.Log(Devices[i].name + "is not a TrackingReference. Skipping to next device...");
+                Debug.Log(Devices[i].name + " is not a TrackingReference. Skipping to next device...");
             }
         }
 
@@ -144,7 +144,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         int HardwareTrackerCount = 0;
@@ -152,7 +152,7 @@ public class InputAutomatic
         {
             if (Devices[i].role == InputDeviceRole.HardwareTracker)
             {
-                Debug.Log(Devices[i].name + "is a HardwareTracker. Running checks...");
+                Debug.Log(Devices[i].name + " is a HardwareTracker. Running checks...");
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
@@ -161,7 +161,7 @@ public class InputAutomatic
                 HardwareTrackerCount++;
             }
             else {
-                Debug.Log(Devices[i].name + "is not a HardwareTracker. Skipping to next device...");
+                Debug.Log(Devices[i].name + " is not a HardwareTracker. Skipping to next device...");
             }
         }
 
@@ -175,7 +175,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
@@ -213,7 +213,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
@@ -246,7 +246,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
@@ -272,7 +272,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "Devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         for (int i = 0; i < Devices.Count; i++)
@@ -365,7 +365,7 @@ public class InputAutomatic
         List<InputDevice> allDevices = new List<InputDevice>();
         InputDevices.GetDevices(allDevices);
 
-        Debug.Log(allDevices.Count + "Devices Found.");       
+        Debug.Log(allDevices.Count + " devices Found.");       
         Assert.AreNotEqual(0, allDevices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
         List<XRInputSubsystem> InputSubsystemInstances = new List<XRInputSubsystem>();
