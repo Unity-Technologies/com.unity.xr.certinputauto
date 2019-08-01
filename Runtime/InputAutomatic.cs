@@ -384,8 +384,10 @@ public class InputAutomatic
                                 break;
                             }
                         }
-                        Debug.Log("Unknown feature detected \"" + Features[j].name + "\"");
-                        Assert.IsFalse(FieldIsInCommonUsages, "Error: " + Features[j].name + " is in Common Usages.  Its backing value needs to be added to this test.");
+                        if (FieldIsInCommonUsages)
+                            Assert.IsTrue(false, "Error: " + Features[j].name + " is in Common Usages.  Its backing value needs to be added to this test.");
+                        else
+                            Debug.Log("Provider specific feature detected: \"" + Features[j].name + ".\"  This test is unable to verify provider-specific usage backing values.");
                         break;
                 }
             }
