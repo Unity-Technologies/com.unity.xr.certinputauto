@@ -19,9 +19,9 @@ public class InputAutomatic
         return false;
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies the Related Usage Definitions Section of the Input Rules document.")]
-    public void RelatedUsageDefinitions()
+    public IEnumerator RelatedUsageDefinitions()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -73,9 +73,9 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a HMD/Generic device has the correct tracking usages.")]
-    public void TrackingUsagesRoleGeneric()
+    public IEnumerator TrackingUsagesRoleGeneric()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -109,9 +109,9 @@ public class InputAutomatic
         Debug.Log(HMDCount + " HMDs found.");
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a TrackingReference device has the correct tracking usages.")]
-    public void TrackingUsagesRoleTrackingReference()
+    public IEnumerator TrackingUsagesRoleTrackingReference()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -143,9 +143,9 @@ public class InputAutomatic
         Debug.Log(TrackingReferenceCount + " TrackingReferences found.");
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a HardwareTracker device has the correct tracking usages.")]
-    public void TrackingUsagesRoleHardwareTracker()
+    public IEnumerator TrackingUsagesRoleHardwareTracker()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -176,9 +176,9 @@ public class InputAutomatic
         Debug.Log(HardwareTrackerCount + " HardwareTrackers found.");
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a tracked device contatins the minimum set of features.")]
-    public void TrackinUsagesDeviceDefinition()
+    public IEnumerator TrackinUsagesDeviceDefinition()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -216,9 +216,9 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that haptics capabilities adhere to correct limits.")]
-    public void HapticCapabilitiesSanityCheck()
+    public IEnumerator HapticCapabilitiesSanityCheck()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -251,9 +251,9 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that there are no repeated features in a device's features list.")]
-    public void UsagesNoRepeats()
+    public IEnumerator UsagesNoRepeats()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -279,9 +279,9 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that all features are backed by the correct values types.")]
-    public void UsagesCorrectBackingValues()
+    public IEnumerator UsagesCorrectBackingValues()
     {
         yield return null; // some platforms need a frame to set up
 
@@ -374,9 +374,9 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that XRInputSubsystem.TryGetDevices works properly when compared to InputDevices.GetDevices.")]
-    public void GetDevicesFromSubsystem()
+    public IEnumerator GetDevicesFromSubsystem()
     {
         yield return null; // some platforms need a frame to set up
 
