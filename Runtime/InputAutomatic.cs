@@ -23,6 +23,8 @@ public class InputAutomatic
     [Description("This test verifies the Related Usage Definitions Section of the Input Rules document.")]
     public void RelatedUsageDefinitions()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -75,6 +77,8 @@ public class InputAutomatic
     [Description("This test verifies that a HMD/Generic device has the correct tracking usages.")]
     public void TrackingUsagesRoleGeneric()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -109,6 +113,8 @@ public class InputAutomatic
     [Description("This test verifies that a TrackingReference device has the correct tracking usages.")]
     public void TrackingUsagesRoleTrackingReference()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -141,6 +147,8 @@ public class InputAutomatic
     [Description("This test verifies that a HardwareTracker device has the correct tracking usages.")]
     public void TrackingUsagesRoleHardwareTracker()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -172,6 +180,8 @@ public class InputAutomatic
     [Description("This test verifies that a tracked device contatins the minimum set of features.")]
     public void TrackinUsagesDeviceDefinition()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -210,6 +220,8 @@ public class InputAutomatic
     [Description("This test verifies that haptics capabilities adhere to correct limits.")]
     public void HapticCapabilitiesSanityCheck()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -243,6 +255,8 @@ public class InputAutomatic
     [Description("This test verifies that there are no repeated features in a device's features list.")]
     public void UsagesNoRepeats()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -269,6 +283,8 @@ public class InputAutomatic
     [Description("This test verifies that all features are backed by the correct values types.")]
     public void UsagesCorrectBackingValues()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -362,6 +378,8 @@ public class InputAutomatic
     [Description("This test verifies that XRInputSubsystem.TryGetDevices works properly when compared to InputDevices.GetDevices.")]
     public void GetDevicesFromSubsystem()
     {
+        yield return null; // some platforms need a frame to set up
+
         List<InputDevice> allDevices = new List<InputDevice>();
         InputDevices.GetDevices(allDevices);
 
