@@ -78,7 +78,7 @@ public class InputAutomatic
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
-        Debug.Log(Devices.Count + "devices Found.");
+        Debug.Log(Devices.Count + " devices Found.");
         Assert.AreNotEqual(0, Devices.Count, "No devices found. This test applies to devices reported by this Input Provider. Please complete a full device setup before rerunning this test.");
 
 
