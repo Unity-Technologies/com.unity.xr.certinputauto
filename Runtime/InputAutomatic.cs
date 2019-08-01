@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -373,7 +374,18 @@ public class InputAutomatic
                         Assert.IsTrue(Features[j].type == typeof(Quaternion));
                         break;
                     default:
-                        Assert.IsTrue(false, "unknown feature detected \"" + Features[j].name + "\"");
+                        FieldInfo[] fields = typeof(CommonUsages).GetFields();
+                        bool FieldIsInCommonUsages = false;
+                        for (int k = 0; k < fields.Length; k++)
+                        {
+                            if (fields[k].Name == Features[j].name)
+                            {
+                                FieldIsInCommonUsages = true;
+                                break;
+                            }
+                        }
+                        Debug.Log("Unknown feature detected \"" + Features[j].name + "\"");
+                        Assert.IsFalse(FieldIsInCommonUsages, "Error: " + Features[j].name + " is in Common Usages.  Its backing value needs to be added to this test.");
                         break;
                 }
             }
