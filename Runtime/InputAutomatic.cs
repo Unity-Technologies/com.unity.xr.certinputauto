@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using UnityEngine;
 using UnityEngine.XR;
 
 public class InputAutomatic
@@ -20,10 +22,73 @@ public class InputAutomatic
         return false;
     }
 
+    struct InputAutoConfiguration
+    {
+        public int FramesToDelayForTests;
+        public string [] DeviceNames;
+    }
+
     IEnumerator WaitForFrames()
     {
-        for (int i = 0; i < 1000; i++)
+        TextAsset FileText = Resources.Load<TextAsset>("XRInputProviderAutomatedTestConfig");
+
+        if (FileText == null)
+        {
+            Debug.Log("No configuration file has been found, WaitForFrames is skipping.");
+            yield break;
+        }
+
+        InputAutoConfiguration Config = JsonUtility.FromJson<InputAutoConfiguration>(FileText.text);
+
+        for (int i = 0; i < Config.FramesToDelayForTests; i++)
             yield return null;
+    }
+
+    [UnityTest]
+    [Description("This test will run if there is a Resources/XRInputProviderAutomatedTestConfig.json defined.  It verifies a particular configuration for test.  If the configuration file is not defined, then tests will run assuming the specific configuration is correct for the purposes of running tests.")]
+    public IEnumerator VerifyConfiguration()
+    {
+        TextAsset FileText = Resources.Load<TextAsset>("XRInputProviderAutomatedTestConfig");
+
+        if (FileText == null)
+        {
+            Debug.Log("No configuration file has been found");
+            yield break;
+        }
+
+        InputAutoConfiguration Config = JsonUtility.FromJson<InputAutoConfiguration>(FileText.text);
+        
+        Debug.Log("Expected Configuration: FramesToDelayForTests = " + Config.FramesToDelayForTests + ". DeviceCount = " + Config.DeviceNames.Length + ". DeviceNames: ");
+        for (int i = 0; i < Config.DeviceNames.Length; i++)
+        {
+            Debug.Log("[" + i + "] " + Config.DeviceNames[i]);
+        }
+
+        yield return WaitForFrames();
+
+        List<InputDevice> Devices = new List<InputDevice>();
+        InputDevices.GetDevices(Devices);
+
+        Debug.Log("\nObserved Configuration: DeviceCount = " + Devices.Count + ". DeviceNames: ");
+        for (int i = 0; i < Devices.Count; i++)
+        {
+            Debug.Log("[" + i + "] " + Devices[i].name);
+        }
+
+        Assert.AreEqual(Config.DeviceNames.Length, Devices.Count, "Comparing expected number of devices to observed number of devices");
+
+        for (int i = 0; i < Config.DeviceNames.Length; i++)
+        {
+            for (int j = 0; j < Devices.Count; j++)
+            {
+                if (Config.DeviceNames[i] == Devices[j].name)
+                {
+                    Devices.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+        Assert.AreEqual(0, Devices.Count, "Error: expected device names did not match observed device names.");
     }
 
     [UnityTest]
