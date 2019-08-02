@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using UnityEngine;
 using UnityEngine.XR;
 
 public class InputAutomatic
@@ -19,10 +22,81 @@ public class InputAutomatic
         return false;
     }
 
-    [Test]
-    [Description("This test verifies the Related Usage Definitions Section of the Input Rules document.")]
-    public void RelatedUsageDefinitions()
+    struct InputAutoConfiguration
     {
+        public int FramesToDelayForTests;
+        public string [] DeviceNames;
+    }
+
+    IEnumerator WaitForFrames()
+    {
+        TextAsset FileText = Resources.Load<TextAsset>("XRInputProviderAutomatedTestConfig");
+
+        if (FileText == null)
+        {
+            Debug.Log("No configuration file has been found, WaitForFrames is skipping.");
+            yield break;
+        }
+
+        InputAutoConfiguration Config = JsonUtility.FromJson<InputAutoConfiguration>(FileText.text);
+
+        for (int i = 0; i < Config.FramesToDelayForTests; i++)
+            yield return null;
+    }
+
+    [UnityTest]
+    [Description("This test will run if there is a Resources/XRInputProviderAutomatedTestConfig.json defined.  It verifies a particular configuration for test.  If the configuration file is not defined, then tests will run assuming the specific configuration is correct for the purposes of running tests.")]
+    public IEnumerator VerifyConfiguration()
+    {
+        TextAsset FileText = Resources.Load<TextAsset>("XRInputProviderAutomatedTestConfig");
+
+        if (FileText == null)
+        {
+            Debug.Log("No configuration file has been found");
+            yield break;
+        }
+
+        InputAutoConfiguration Config = JsonUtility.FromJson<InputAutoConfiguration>(FileText.text);
+        
+        Debug.Log("Expected Configuration: FramesToDelayForTests = " + Config.FramesToDelayForTests + ". DeviceCount = " + Config.DeviceNames.Length + ". DeviceNames: ");
+        for (int i = 0; i < Config.DeviceNames.Length; i++)
+        {
+            Debug.Log("[" + i + "] " + Config.DeviceNames[i]);
+        }
+
+        yield return WaitForFrames();
+
+        List<InputDevice> Devices = new List<InputDevice>();
+        InputDevices.GetDevices(Devices);
+
+        Debug.Log("\nObserved Configuration: DeviceCount = " + Devices.Count + ". DeviceNames: ");
+        for (int i = 0; i < Devices.Count; i++)
+        {
+            Debug.Log("[" + i + "] " + Devices[i].name);
+        }
+
+        Assert.AreEqual(Config.DeviceNames.Length, Devices.Count, "Comparing expected number of devices to observed number of devices");
+
+        for (int i = 0; i < Config.DeviceNames.Length; i++)
+        {
+            for (int j = 0; j < Devices.Count; j++)
+            {
+                if (Config.DeviceNames[i] == Devices[j].name)
+                {
+                    Devices.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+        Assert.AreEqual(0, Devices.Count, "Error: expected device names did not match observed device names.");
+    }
+
+    [UnityTest]
+    [Description("This test verifies the Related Usage Definitions Section of the Input Rules document.")]
+    public IEnumerator RelatedUsageDefinitions()
+    {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -71,10 +145,12 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a HMD/Generic device has the correct tracking usages.")]
-    public void TrackingUsagesRoleGeneric()
+    public IEnumerator TrackingUsagesRoleGeneric()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -105,10 +181,12 @@ public class InputAutomatic
         Debug.Log(HMDCount + " HMDs found.");
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a TrackingReference device has the correct tracking usages.")]
-    public void TrackingUsagesRoleTrackingReference()
+    public IEnumerator TrackingUsagesRoleTrackingReference()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -137,10 +215,12 @@ public class InputAutomatic
         Debug.Log(TrackingReferenceCount + " TrackingReferences found.");
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a HardwareTracker device has the correct tracking usages.")]
-    public void TrackingUsagesRoleHardwareTracker()
+    public IEnumerator TrackingUsagesRoleHardwareTracker()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -168,10 +248,12 @@ public class InputAutomatic
         Debug.Log(HardwareTrackerCount + " HardwareTrackers found.");
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that a tracked device contatins the minimum set of features.")]
-    public void TrackinUsagesDeviceDefinition()
+    public IEnumerator TrackinUsagesDeviceDefinition()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -206,10 +288,12 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that haptics capabilities adhere to correct limits.")]
-    public void HapticCapabilitiesSanityCheck()
+    public IEnumerator HapticCapabilitiesSanityCheck()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -239,10 +323,12 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that there are no repeated features in a device's features list.")]
-    public void UsagesNoRepeats()
+    public IEnumerator UsagesNoRepeats()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -265,10 +351,12 @@ public class InputAutomatic
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that all features are backed by the correct values types.")]
-    public void UsagesCorrectBackingValues()
+    public IEnumerator UsagesCorrectBackingValues()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
 
@@ -351,17 +439,32 @@ public class InputAutomatic
                         Assert.IsTrue(Features[j].type == typeof(Quaternion));
                         break;
                     default:
-                        Assert.IsTrue(false, "unknown feature detected \"" + Features[j].name + "\"");
+                        FieldInfo[] fields = typeof(CommonUsages).GetFields();
+                        bool FieldIsInCommonUsages = false;
+                        for (int k = 0; k < fields.Length; k++)
+                        {
+                            if (fields[k].Name == Features[j].name)
+                            {
+                                FieldIsInCommonUsages = true;
+                                break;
+                            }
+                        }
+                        if (FieldIsInCommonUsages)
+                            Assert.IsTrue(false, "Error: " + Features[j].name + " is in Common Usages.  Its backing value needs to be added to this test.");
+                        else
+                            Debug.Log("Provider specific feature detected: \"" + Features[j].name + ".\"  This test is unable to verify provider-specific usage backing values.");
                         break;
                 }
             }
         }
     }
 
-    [Test]
+    [UnityTest]
     [Description("This test verifies that XRInputSubsystem.TryGetDevices works properly when compared to InputDevices.GetDevices.")]
-    public void GetDevicesFromSubsystem()
+    public IEnumerator GetDevicesFromSubsystem()
     {
+        yield return WaitForFrames();
+
         List<InputDevice> allDevices = new List<InputDevice>();
         InputDevices.GetDevices(allDevices);
 
