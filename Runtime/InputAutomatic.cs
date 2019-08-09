@@ -34,7 +34,7 @@ public class InputAutomatic
 
         if (FileText == null)
         {
-            Debug.Log("No configuration file has been found, WaitForFrames is skipping.");
+            Debug.Log("No configuration file has been found. WaitForFrames is skipping.");
             yield break;
         }
 
@@ -116,17 +116,17 @@ public class InputAutomatic
             if (ContainsFeatureWithName(Features, "PrimaryTouch") 
                 || ContainsFeatureWithName(Features, "SecondaryButton")
                 )
-                Assert.IsTrue(ContainsFeatureWithName(Features, "PrimaryButton"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "PrimaryButton"), "If a PrimaryTouch usage or a SecondaryButton usage exist, then a PrimaryButton usage must exist.");
 
             // If SecondaryTouch exists
             // then PrimaryTouch must exist
             if (ContainsFeatureWithName(Features, "SecondaryTouch"))
-                Assert.IsTrue(ContainsFeatureWithName(Features, "PrimaryTouch"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "PrimaryTouch"), "If a SecondaryTouch usage exists, then a PrimaryTouch usage must exist");
 
             // If SecondaryTouch exists
             // then SecondaryButton must exist
             if (ContainsFeatureWithName(Features, "SecondaryTouch"))
-                Assert.IsTrue(ContainsFeatureWithName(Features, "SecondaryButton"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "SecondaryButton"), "If a SecondaryTouch usage exists, then a SecondaryButton usage must exist");
 
             // If Primary2DAxisTouch, Primary2DAxisClick, or Secondary2DAxis exist
             // then Primary2DAxis must exist
@@ -134,19 +134,19 @@ public class InputAutomatic
                 || ContainsFeatureWithName(Features, "Primary2DAxisClick")
                 || ContainsFeatureWithName(Features, "Secondary2DAxis")
                 )
-                Assert.IsTrue(ContainsFeatureWithName(Features, "Primary2DAxis"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "Primary2DAxis"), "If a Primary2DAxisTouch, Primary2DAxisClick, or Secondary2DAxis usage exist, then a Primary2DAxis usage must exist.");
 
             // If either Trigger or TriggerButton exist then both must exist.
-            Assert.IsTrue(!(ContainsFeatureWithName(Features, "Trigger") ^ ContainsFeatureWithName(Features, "TriggerButton")));
+            Assert.IsTrue(!(ContainsFeatureWithName(Features, "Trigger") ^ ContainsFeatureWithName(Features, "TriggerButton")), "If either a Trigger or TriggerButton usage exists, then both must exist.");
 
             // If either Grip or GripButton exist then both must exist.
-            Assert.IsTrue(!(ContainsFeatureWithName(Features, "Grip") ^ ContainsFeatureWithName(Features, "GripButton")));
+            Assert.IsTrue(!(ContainsFeatureWithName(Features, "Grip") ^ ContainsFeatureWithName(Features, "GripButton")), "If either a Grip or GripButton usage exists, then both must exist.");
 
         }
     }
 
     [UnityTest]
-    [Description("This test verifies that a HMD/Generic device has the correct tracking usages.")]
+    [Description("This test verifies that a HMD/Generic role device has the correct tracking usages.")]
     public IEnumerator TrackingUsagesRoleGeneric()
     {
         yield return WaitForFrames();
@@ -167,10 +167,10 @@ public class InputAutomatic
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
-                Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"));
-                Assert.IsTrue(ContainsFeatureWithName(Features, "LeftEyeRotation"));
-                Assert.IsTrue(ContainsFeatureWithName(Features, "RightEyeRotation"));
-                Assert.IsTrue(ContainsFeatureWithName(Features, "CenterEyeRotation"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"), "A DeviceRotation usage must exist.");
+                Assert.IsTrue(ContainsFeatureWithName(Features, "LeftEyeRotation"), "A LeftEyeRotation usage must exist.");
+                Assert.IsTrue(ContainsFeatureWithName(Features, "RightEyeRotation"), "A RightEyeRotation usage must exist.");
+                Assert.IsTrue(ContainsFeatureWithName(Features, "CenterEyeRotation"), "A CenterEyeRotation usage must exist.");
                 HMDCount++;
             }
             else {
@@ -202,8 +202,8 @@ public class InputAutomatic
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
-                Assert.IsTrue(ContainsFeatureWithName(Features, "DevicePosition"));
-                Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "DevicePosition"), "A DevicePosition usage must exist.");
+                Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"), "A DeviceRotation usage must exist.");
 
                 TrackingReferenceCount++;
             }
@@ -236,8 +236,8 @@ public class InputAutomatic
                 List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
                 Devices[i].TryGetFeatureUsages(Features);
 
-                Assert.IsTrue(ContainsFeatureWithName(Features, "DevicePosition"));
-                Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"));
+                Assert.IsTrue(ContainsFeatureWithName(Features, "DevicePosition"), "A DevicePosition usage must exist.");
+                Assert.IsTrue(ContainsFeatureWithName(Features, "DeviceRotation"), "A DeviceRotation usage must exist.");
                 HardwareTrackerCount++;
             }
             else {
@@ -249,7 +249,7 @@ public class InputAutomatic
     }
 
     [UnityTest]
-    [Description("This test verifies that a tracked device contatins the minimum set of features.")]
+    [Description("This test verifies that each tracked device contatins the minimum set of features.")]
     public IEnumerator TrackinUsagesDeviceDefinition()
     {
         yield return WaitForFrames();
@@ -282,8 +282,8 @@ public class InputAutomatic
                 || ContainsFeatureWithName(Features, "DeviceVelocity")
                 || ContainsFeatureWithName(Features, "DeviceAngularVelocity")
                 || ContainsFeatureWithName(Features, "DeviceAcceleration")
-                || ContainsFeatureWithName(Features, "DeviceAngularAcceleration")
-                )
+                || ContainsFeatureWithName(Features, "DeviceAngularAcceleration")),
+                "At a minimum, a tracked device must have the IsTracked, TrackingState, and one the Device___ usages."
                 );
         }
     }
@@ -306,7 +306,7 @@ public class InputAutomatic
             HapticCapabilities hapticCapabilities;
 
             if (!Devices[i].TryGetHapticCapabilities(out hapticCapabilities))
-                break;
+                continue;
 
             if (hapticCapabilities.supportsBuffer) {
                 Assert.IsTrue(hapticCapabilities.bufferFrequencyHz > 0, "Supports buffer is true, HapticCapabilities.bufferFrequencyHz is zero");
@@ -345,7 +345,7 @@ public class InputAutomatic
             {
                 for (int k = j + 1; k < Features.Count; k++)
                 {
-                    Assert.AreNotEqual(Features[j].name, Features[k].name);
+                    Assert.AreNotEqual(Features[j].name, Features[k].name, "The feature usage " + Features[j].name + " is duplicated in this device.");
                 }
             }
         }
@@ -374,7 +374,7 @@ public class InputAutomatic
                 switch (Features[j].name)
                 {
                     case "TrackingState":
-                        Assert.IsTrue(Features[j].type == typeof(uint));
+                        Assert.IsTrue(Features[j].type == typeof(uint), Features[j].name + " should be of type uint, but is observed as type " + Features[j].type);
                         break;
                     case "IsTracked":
                     case "PrimaryButton":
@@ -387,7 +387,7 @@ public class InputAutomatic
                     case "Primary2DAxisClick":
                     case "Primary2DAxisTouch":
                     case "Thumbrest":
-                        Assert.IsTrue(Features[j].type == typeof(bool));
+                        Assert.IsTrue(Features[j].type == typeof(bool), Features[j].name + " should be of type bool, but is observed as type " + Features[j].type);
                         break;
                     case "Trigger":
                     case "Grip":
@@ -398,11 +398,11 @@ public class InputAutomatic
                     case "RingFinger":
                     case "PinkyFinger":
                     case "BatteryLevel":
-                        Assert.IsTrue(Features[j].type == typeof(float));
+                        Assert.IsTrue(Features[j].type == typeof(float), Features[j].name + " should be of type float, but is observed as type " + Features[j].type);
                         break;
                     case "Primary2DAxis":
                     case "Secondary2DAxis":
-                        Assert.IsTrue(Features[j].type == typeof(Vector2));
+                        Assert.IsTrue(Features[j].type == typeof(Vector2), Features[j].name + " should be of type Vector2, but is observed as type " + Features[j].type);
                         break;
                     case "DevicePosition":
                     case "DeviceVelocity":
@@ -429,14 +429,14 @@ public class InputAutomatic
                     case "RightEyeAcceleration":
                     case "RightEyeAngularVelocity":
                     case "RightEyeAngularAcceleration":
-                        Assert.IsTrue(Features[j].type == typeof(Vector3));
+                        Assert.IsTrue(Features[j].type == typeof(Vector3), Features[j].name + " should be of type Vector3, but is observed as type " + Features[j].type);
                         break;
                     case "DeviceRotation":
                     case "ColorCameraRotation":
                     case "CenterEyeRotation":
                     case "LeftEyeRotation":
                     case "RightEyeRotation":
-                        Assert.IsTrue(Features[j].type == typeof(Quaternion));
+                        Assert.IsTrue(Features[j].type == typeof(Quaternion), Features[j].name + " should be of type Quaternion, but is observed as type " + Features[j].type);
                         break;
                     default:
                         FieldInfo[] fields = typeof(CommonUsages).GetFields();
