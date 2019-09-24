@@ -250,7 +250,7 @@ public class InputAutomatic
 
     [UnityTest]
     [Description("This test verifies that each tracked device contatins the minimum set of features.")]
-    public IEnumerator TrackinUsagesDeviceDefinition()
+    public void TrackingUsagesDeviceDefinition()
     {
         yield return WaitForFrames();
 
@@ -266,7 +266,8 @@ public class InputAutomatic
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
-            if (ContainsFeatureWithName(Features, "IsTracked")
+            if ((0 != (Devices[i].characteristics | InputDeviceCharacteristics.TrackedDevice))
+                || ContainsFeatureWithName(Features, "IsTracked")
                 || ContainsFeatureWithName(Features, "TrackingState")
                 || ContainsFeatureWithName(Features, "DevicePosition")
                 || ContainsFeatureWithName(Features, "DeviceRotation")
@@ -275,7 +276,8 @@ public class InputAutomatic
                 || ContainsFeatureWithName(Features, "DeviceAcceleration")
                 || ContainsFeatureWithName(Features, "DeviceAngularAcceleration")
                 )
-                Assert.IsTrue(ContainsFeatureWithName(Features, "IsTracked")
+                Assert.IsTrue((0 != (Devices[i].characteristics | InputDeviceCharacteristics.TrackedDevice))
+                && ContainsFeatureWithName(Features, "IsTracked")
                 && ContainsFeatureWithName(Features, "TrackingState")
                 && (ContainsFeatureWithName(Features, "DevicePosition")
                 || ContainsFeatureWithName(Features, "DeviceRotation")
