@@ -250,7 +250,7 @@ public class InputAutomatic
 
     [UnityTest]
     [Description("This test verifies that each tracked device contatins the minimum set of features.")]
-    public void TrackingUsagesDeviceDefinition()
+    public IEnumerator TrackingUsagesDeviceDefinition()
     {
         yield return WaitForFrames();
 
