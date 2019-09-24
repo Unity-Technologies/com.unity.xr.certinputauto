@@ -139,7 +139,7 @@ public class InputAutomatic
 
     [Test]
     [Description("This test verifies that a tracked device contatins the minimum set of features.")]
-    public void TrackinUsagesDeviceDefinition()
+    public void TrackingUsagesDeviceDefinition()
     {
         List<InputDevice> Devices = new List<InputDevice>();
         InputDevices.GetDevices(Devices);
@@ -151,7 +151,8 @@ public class InputAutomatic
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
-            if (ContainsFeatureWithName(Features, "IsTracked")
+            if ((0 != (Devices[i].characteristics | InputDeviceCharacteristics.TrackedDevice))
+                || ContainsFeatureWithName(Features, "IsTracked")
                 || ContainsFeatureWithName(Features, "TrackingState")
                 || ContainsFeatureWithName(Features, "DevicePosition")
                 || ContainsFeatureWithName(Features, "DeviceRotation")
@@ -160,7 +161,8 @@ public class InputAutomatic
                 || ContainsFeatureWithName(Features, "DeviceAcceleration")
                 || ContainsFeatureWithName(Features, "DeviceAngularAcceleration")
                 )
-                Assert.IsTrue(ContainsFeatureWithName(Features, "IsTracked")
+                Assert.IsTrue((0 != (Devices[i].characteristics | InputDeviceCharacteristics.TrackedDevice))
+                && ContainsFeatureWithName(Features, "IsTracked")
                 && ContainsFeatureWithName(Features, "TrackingState")
                 && (ContainsFeatureWithName(Features, "DevicePosition")
                 || ContainsFeatureWithName(Features, "DeviceRotation")
