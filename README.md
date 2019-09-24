@@ -10,3 +10,17 @@ How to add this to your project:
 "testables": [
   "com.unity.xr.certinputauto"
 ]
+
+The VerifyConfiguration test is optional.  It allows you to smoke test that your XR system is set up correctly.  To enable it, create a file in your project at "Assets/Resources/XRInputProviderAutomatedTestConfig.json" of the following format:
+
+```
+{
+  "FramesToDelayForTests": 0,
+  "DeviceNames": [
+    "Mock Head Mounted Display",
+    "Mock Controller - Left",
+    "Mock Controller - Right"
+  ]
+}
+
+```
