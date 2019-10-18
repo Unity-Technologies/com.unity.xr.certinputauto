@@ -266,7 +266,7 @@ public class InputAutomatic
             List<InputFeatureUsage> Features = new List<InputFeatureUsage>();
             Devices[i].TryGetFeatureUsages(Features);
 
-            if ((0 != (Devices[i].characteristics | InputDeviceCharacteristics.TrackedDevice))
+            if ((0 != (Devices[i].characteristics & InputDeviceCharacteristics.TrackedDevice))
                 || ContainsFeatureWithName(Features, "IsTracked")
                 || ContainsFeatureWithName(Features, "TrackingState")
                 || ContainsFeatureWithName(Features, "DevicePosition")
@@ -276,7 +276,7 @@ public class InputAutomatic
                 || ContainsFeatureWithName(Features, "DeviceAcceleration")
                 || ContainsFeatureWithName(Features, "DeviceAngularAcceleration")
                 )
-                Assert.IsTrue((0 != (Devices[i].characteristics | InputDeviceCharacteristics.TrackedDevice))
+                Assert.IsTrue((0 != (Devices[i].characteristics & InputDeviceCharacteristics.TrackedDevice))
                 && ContainsFeatureWithName(Features, "IsTracked")
                 && ContainsFeatureWithName(Features, "TrackingState")
                 && (ContainsFeatureWithName(Features, "DevicePosition")
