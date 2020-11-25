@@ -347,7 +347,7 @@ public class InputAutomatic
             {
                 for (int k = j + 1; k < Features.Count; k++)
                 {
-                    Assert.AreNotEqual(Features[j].name, Features[k].name, "The feature usage " + Features[j].name + " is duplicated in this device.");
+                    Assert.AreNotEqual(Features[j].name, Features[k].name, $"The feature usage \"{Features[j].name}\" is duplicated on device \"{Devices[i].name}\"");
                 }
             }
         }
